@@ -1,0 +1,21 @@
+# Python environment
+.venv/
+__pycache__/
+*.pyc
+
+# Git and system files
+.git/
+.DS_Store
+
+# Jupyter notebooks
+notebooks/
+.ipynb_checkpoints/
+
+# Documentation and reports
+reports/
+templates/
+part_1/
+
+# Local files
+.env
+.env.*
