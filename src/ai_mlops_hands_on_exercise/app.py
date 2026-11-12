@@ -89,3 +89,16 @@ target_plot.set(
 plt.tight_layout()
 st.pyplot(plt.gcf())
 plt.close()
+
+# age distribution
+plt.figure(figsize=(7, 4))
+
+age_plot = sns.histplot(data=filtered, x="age", bins=25, color=PALETTE[1])
+
+age_plot.set(
+    xlabel="Age (years)", ylabel="Number of Customers", title="Client Age Distribution"
+)
+
+plt.tight_layout()
+st.pyplot(plt.gcf())
+plt.close()
