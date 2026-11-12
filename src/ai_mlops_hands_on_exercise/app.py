@@ -6,6 +6,8 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 
+st.set_page_config(page_title="Bank Marketing Dashboard", layout="wide")
+
 # setting color palette
 BG = "#0B1426"
 PANEL = "#111D33"
@@ -70,35 +72,37 @@ col1, col2 = st.columns(2)
 col1.metric("Customers", f"{len(filtered):,}")
 col2.metric("Subscription Rate", f"{subscription_rate:.1f}%")
 
-# subscription rate visualization
-st.progress(
-    subscription_rate / 100, text=f"Subscribed customers: {subscription_rate:.1f}%"
-)
+# data visualizations
+col1, col2 = st.columns(2)
 
-# plotting target distribution
-plt.figure(figsize=(7, 4))
+with col1:
+    # plotting target distribution
+    plt.figure(figsize=(7, 4))
 
-target_plot = sns.countplot(
-    data=filtered, x="y", hue="y", palette=PALETTE[:2], legend=False
-)
+    target_plot = sns.countplot(
+        data=filtered, x="y", hue="y", palette=PALETTE[:2], legend=False
+    )
 
-target_plot.set(
-    xlabel="Subscription", ylabel="Number of Customers", title="Target Distribution"
-)
+    target_plot.set(
+        xlabel="Subscription", ylabel="Number of Customers", title="Target Distribution"
+    )
 
-plt.tight_layout()
-st.pyplot(plt.gcf())
-plt.close()
+    plt.tight_layout()
+    st.pyplot(plt.gcf())
+    plt.close()
 
-# age distribution
-plt.figure(figsize=(7, 4))
+with col2:
+    # age distribution
+    plt.figure(figsize=(7, 4))
 
-age_plot = sns.histplot(data=filtered, x="age", bins=25, color=PALETTE[1])
+    age_plot = sns.histplot(data=filtered, x="age", bins=25, color=PALETTE[1])
 
-age_plot.set(
-    xlabel="Age (years)", ylabel="Number of Customers", title="Client Age Distribution"
-)
+    age_plot.set(
+        xlabel="Age (years)",
+        ylabel="Number of Customers",
+        title="Client Age Distribution",
+    )
 
-plt.tight_layout()
-st.pyplot(plt.gcf())
-plt.close()
+    plt.tight_layout()
+    st.pyplot(plt.gcf())
+    plt.close()
