@@ -55,3 +55,21 @@ df = load_data()
 # Streamlit app
 st.title("Bank Marketing Dataset EDA")
 st.caption("Interactive exploration of bank customers")
+
+# job filter
+job = st.selectbox("Filter by job", ["All"] + sorted(df["job"].unique()))
+
+filtered = df if job == "All" else df[df["job"] == job]
+
+# key metrics
+subscription_rate = filtered["y"].eq("yes").mean() * 100
+
+col1, col2 = st.columns(2)
+
+col1.metric("Customers", f"{len(filtered):,}")
+col2.metric("Subscription Rate", f"{subscription_rate:.1f}%")
+
+# subscription rate visualization
+st.progress(
+    subscription_rate / 100, text=f"Subscribed customers: {subscription_rate:.1f}%"
+)
