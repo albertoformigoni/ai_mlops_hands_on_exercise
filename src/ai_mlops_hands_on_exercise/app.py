@@ -1,6 +1,7 @@
 import zipfile
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 import streamlit as st
@@ -73,3 +74,18 @@ col2.metric("Subscription Rate", f"{subscription_rate:.1f}%")
 st.progress(
     subscription_rate / 100, text=f"Subscribed customers: {subscription_rate:.1f}%"
 )
+
+# plotting target distribution
+plt.figure(figsize=(7, 4))
+
+target_plot = sns.countplot(
+    data=filtered, x="y", hue="y", palette=PALETTE[:2], legend=False
+)
+
+target_plot.set(
+    xlabel="Subscription", ylabel="Number of Customers", title="Target Distribution"
+)
+
+plt.tight_layout()
+st.pyplot(plt.gcf())
+plt.close()
